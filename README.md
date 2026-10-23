@@ -1,6 +1,9 @@
 # Blockchain-Based Secure Voting System
 > **Tagline:** *"Your Vote. Your Voice. Securely."*  
-> **DBMS Academic Project** • Normalized Relational Architecture + Cryptographic SHA-256 Ledger + AI Voice Assistant
+> **DBMS Academic Project** • Normalized Relational Architecture + Cryptographic SHA-256 Ledger + AI Voice Assistant  
+> **Student:** **MEGA SREE MS** (Reg. No: **711525BCS092**)  
+> **Institution:** **Kalaignarkarunanidhi Institute of Technology, Coimbatore**  
+> **Department:** Computer Science and Engineering (CSE-C) | Academic Year: 2025–2029  
 
 ---
 

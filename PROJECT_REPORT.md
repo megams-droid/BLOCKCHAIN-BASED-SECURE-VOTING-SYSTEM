@@ -1,13 +1,42 @@
 # Academic Project Report: Blockchain-Based Secure Voting System
-**DBMS Mini-Project & Cybersecurity Architecture Documentation**  
-**Project Name:** Blockchain-Based Secure Voting System  
-**Tagline:** *"Your Vote. Your Voice. Securely."*  
-**Platform:** Antigravity AI-Powered Engineering Workspace  
+**DBMS Mini-Project & Cybersecurity Architecture Documentation**
+
+---
+
+### Student & Institutional Details
+- **Student Name:** **MEGA SREE MS**
+- **Register Number:** **711525BCS092**
+- **College Name:** **Kalaignarkarunanidhi Institute of Technology, Coimbatore**
+- **Department:** **Computer Science and Engineering (CSE-C)**
+- **Academic Year:** **2025–2029**
+- **Degree:** **Bachelor of Engineering (B.E.) in Computer Science and Engineering**
+- **Project Title:** **BLOCKCHAIN-BASED SECURE VOTING SYSTEM**
+- **Tagline:** *"Your Vote. Your Voice. Securely."*
+- **Platform:** **Antigravity AI-Powered Engineering Workspace**
+
+---
+
+### Bonafide Certificate
+> This is to certify that the project report titled **"BLOCKCHAIN-BASED SECURE VOTING SYSTEM"** is a bonafide record of independent work done by **MEGA SREE MS** (Register No.: **711525BCS092**), student of Department of Computer Science and Engineering (CSE-C), **Kalaignarkarunanidhi Institute of Technology, Coimbatore**, during the academic year **2025–2029**, in partial fulfillment of the requirements for the award of the degree of Bachelor of Engineering (B.E.) in Computer Science and Engineering.
+>
+> **Project Guide:** [Supervisor / Project Guide Name, Designation]  
+> **Head of Department:** [Head of the Department, Professor & HOD]  
+> **Internal Examiner:** [Internal Examiner]  
+> **External Examiner:** [External Examiner]  
+
+---
+
+### Student Declaration
+> I, **MEGA SREE MS** (Register No.: **711525BCS092**), hereby declare that the project entitled **"BLOCKCHAIN-BASED SECURE VOTING SYSTEM"** submitted to **Kalaignarkarunanidhi Institute of Technology, Coimbatore** in partial fulfillment of the requirements for the award of B.E. in Computer Science and Engineering is a record of original DBMS and full-stack software development work done by me.
+>
+> **Place:** Coimbatore  
+> **Date:** October 2026  
+> **Student:** **MEGA SREE MS** (Reg. No.: **711525BCS092**)  
 
 ---
 
 ## 1. Abstract
-The **Blockchain-Based Secure Voting System** is a full-stack electronic voting platform engineered to guarantee ballot secrecy, verifiable participation, and mathematical auditability. By pairing a normalized relational Database Management System (3NF schema) with a SHA-256 hash-linked cryptographic ledger, the application addresses traditional electronic voting pitfalls such as duplicate ballot injection, database tampering, and voter intimidation. The application provides role-based access control (Admin, Candidate, Voter), live election scheduling, cryptographic verification of previous-hash linkages, and an integrated AI Voice Assistant with support for both modern White Mode and Dark Mode styling.
+The **Blockchain-Based Secure Voting System** is a full-stack electronic voting platform engineered by **MEGA SREE MS** (Reg. No.: **711525BCS092**) at **Kalaignarkarunanidhi Institute of Technology, Coimbatore** to guarantee ballot secrecy, verifiable participation, and mathematical auditability. By pairing a normalized relational Database Management System (3NF schema) with a SHA-256 hash-linked cryptographic ledger, the application addresses traditional electronic voting pitfalls such as duplicate ballot injection, database tampering, and voter intimidation. The application provides role-based access control (Admin, Candidate, Voter), live election scheduling, cryptographic verification of previous-hash linkages, and an integrated AI Voice Assistant with support for both modern White Mode and Dark Mode styling.
 
 ---
 
@@ -192,4 +221,4 @@ The frontend implements an AI Voice Assistant using the **Web Speech API**:
 ---
 
 ## 10. Conclusion
-The **Blockchain-Based Secure Voting System** successfully integrates modern web design, relational database principles (3NF, ACID transactions, referential integrity), and cryptographic hashing. The combination of an intuitive White Mode UI, interactive AI Voice Assistant, and live blockchain verification provides an exceptional platform for university demonstrations, viva examinations, and technical presentations.
+The **Blockchain-Based Secure Voting System** developed by **MEGA SREE MS** (Register Number: **711525BCS092**) at **Kalaignarkarunanidhi Institute of Technology, Coimbatore** successfully integrates modern web design, relational database principles (3NF normalization, ACID transactions, referential integrity), and cryptographic hashing. The combination of an intuitive White Mode UI, interactive AI Voice Assistant, and live blockchain verification provides an exceptional platform for university demonstrations, viva examinations, and technical presentations.
