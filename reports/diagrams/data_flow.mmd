@@ -1,0 +1,58 @@
+graph LR
+    subgraph ExternalEntities ["External Entities"]
+        VoterEntity["Voter"]
+        AdminEntity["Election Admin"]
+        CandidateEntity["Candidate"]
+    end
+
+    subgraph Level0Processes ["Level-1 Data Flow Processes"]
+        P1["1.0 User Authentication & RBAC"]
+        P2["2.0 Election & Candidate Management"]
+        P3["3.0 Voter Eligibility Verification"]
+        P4["4.0 Anonymous Ballot Casting (ACID)"]
+        P5["5.0 SHA-256 Ledger Mining"]
+        P6["6.0 Blockchain Ledger Auditor"]
+        P7["7.0 Results & Turnout Aggregator"]
+    end
+
+    subgraph DataStores ["Relational Data Stores"]
+        D1[("users")]
+        D2[("elections")]
+        D3[("candidates")]
+        D4[("voter_eligibility")]
+        D5[("votes (Anonymous)")]
+        D6[("blockchain_blocks")]
+        D7[("audit_logs")]
+    end
+
+    VoterEntity -->|Credentials| P1
+    AdminEntity -->|Credentials| P1
+    CandidateEntity -->|Credentials| P1
+    P1 <--> D1
+    P1 -->|Log Auth Action| D7
+
+    AdminEntity -->|Create / Schedule Election| P2
+    CandidateEntity -->|Submit Manifesto| P2
+    P2 <--> D2
+    P2 <--> D3
+
+    VoterEntity -->|Query Eligibility| P3
+    P3 <--> D4
+
+    VoterEntity -->|Submit Ballot| P4
+    P4 <--> D4
+    P4 -->|Create Anonymous Record| D5
+    P4 -->|Trigger Mining| P5
+    P5 <--> D6
+    P5 -->|Assign block_id| D5
+
+    VoterEntity -->|Audit Request| P6
+    AdminEntity -->|Audit Request| P6
+    P6 <--> D6
+    P6 <--> D5
+
+    AdminEntity -->|Publish / View Results| P7
+    VoterEntity -->|View Tally| P7
+    P7 <--> D2
+    P7 <--> D3
+    P7 <--> D5

@@ -1,0 +1,39 @@
+sequenceDiagram
+    autonumber
+    actor Voter as Voter (Client)
+    participant UI as React 18 Frontend
+    participant Server as Express Server
+    participant Auth as JWT Auth Middleware
+    participant VoteCtrl as Voting Controller
+    participant DB as Relational Database
+    participant Ledger as SHA-256 Ledger Engine
+
+    Voter->>UI: Select Candidate & Click "Confirm Ballot"
+    UI->>Server: POST /api/voting/cast {election_id, candidate_id}
+    Server->>Auth: Validate JWT Token
+    Auth-->>Server: Token Verified (user_id, role="voter")
+    Server->>VoteCtrl: castVote(req, res)
+
+    Note over VoteCtrl,DB: Begin ACID Database Transaction
+    VoteCtrl->>DB: Check Election Status == 'active' & within timeframe
+    VoteCtrl->>DB: Check voter_eligibility WHERE election_id=? AND voter_id=?
+    
+    alt Voter has already voted (has_voted == 1)
+        DB-->>VoteCtrl: has_voted = 1
+        VoteCtrl->>DB: ROLLBACK Transaction
+        VoteCtrl-->>UI: HTTP 400 "DUPLICATE_VOTE: You have already cast your ballot."
+        UI-->>Voter: Display Duplicate Vote Alert
+    else Voter is Eligible & has_voted == 0
+        VoteCtrl->>DB: UPDATE voter_eligibility SET has_voted=1, voted_at=NOW
+        VoteCtrl->>Ledger: Compute One-Way Anon Token & Transaction Hash
+        VoteCtrl->>Ledger: createLedgerBlock(election_id, tx_hash)
+        Ledger->>DB: SELECT latest block current_hash AS previous_hash
+        Ledger->>Ledger: Calculate new SHA-256 block hash
+        Ledger->>DB: INSERT INTO blockchain_blocks (block_index, prev_hash, curr_hash, ...)
+        Ledger-->>VoteCtrl: Return new block_id
+        VoteCtrl->>DB: INSERT INTO votes (election_id, candidate_id, anon_token, block_id)
+        VoteCtrl->>DB: INSERT INTO audit_logs (actor, action="VOTE_CAST")
+        Note over VoteCtrl,DB: COMMIT Database Transaction
+        VoteCtrl-->>UI: HTTP 200 "Vote cast securely and mined into blockchain."
+        UI-->>Voter: Show Success Confirmation & Receipt Token
+    end

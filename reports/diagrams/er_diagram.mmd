@@ -1,0 +1,79 @@
+erDiagram
+    USERS ||--o{ ELECTIONS : "creates"
+    USERS ||--o{ CANDIDATES : "registers_as"
+    USERS ||--o{ VOTER_ELIGIBILITY : "enrolled_in"
+    USERS ||--o{ AUDIT_LOGS : "triggers"
+    ELECTIONS ||--o{ CANDIDATES : "features"
+    ELECTIONS ||--o{ VOTER_ELIGIBILITY : "validates"
+    ELECTIONS ||--o{ VOTES : "receives"
+    ELECTIONS ||--o{ BLOCKCHAIN_BLOCKS : "chains"
+    CANDIDATES ||--o{ VOTES : "chosen_in"
+    BLOCKCHAIN_BLOCKS ||--o{ VOTES : "anchors"
+
+    USERS {
+        int user_id PK
+        string full_name
+        string email UK
+        string password_hash
+        string role "voter | candidate | admin"
+        string voter_reference UK
+        string account_status
+        datetime created_at
+    }
+
+    ELECTIONS {
+        int election_id PK
+        string election_name
+        text description
+        datetime start_time
+        datetime end_time
+        string election_status "upcoming | active | closed"
+        int results_published
+        int created_by FK
+    }
+
+    CANDIDATES {
+        int candidate_id PK
+        int user_id FK
+        int election_id FK
+        string candidate_name
+        string party_or_group
+        text manifesto
+    }
+
+    VOTER_ELIGIBILITY {
+        int eligibility_id PK
+        int voter_id FK
+        int election_id FK
+        int is_eligible
+        int has_voted
+        datetime voted_at
+    }
+
+    VOTES {
+        int vote_id PK
+        int election_id FK
+        int candidate_id FK
+        string encrypted_or_protected_vote_reference
+        datetime cast_at
+        int block_id FK
+    }
+
+    BLOCKCHAIN_BLOCKS {
+        int block_id PK
+        int election_id FK
+        int block_index
+        char(64) previous_hash
+        char(64) current_hash
+        char(64) transaction_hash
+        datetime created_at
+    }
+
+    AUDIT_LOGS {
+        int log_id PK
+        int actor_user_id FK
+        string action_type
+        string entity_type
+        string entity_reference
+        datetime created_at
+    }

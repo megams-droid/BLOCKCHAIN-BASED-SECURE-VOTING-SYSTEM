@@ -1,0 +1,43 @@
+graph TD
+    subgraph PresentationTier ["1. Presentation Tier (React 18 + Vite)"]
+        UI["Modern White Mode UI\n(Responsive SPA, Theme Switcher)"]
+        Voice["AI Voice Assistant\n(Web Speech API: STT & TTS)"]
+        AdminView["Admin Dashboard & Candidate Portal"]
+        VoterView["Elections & Anonymous Ballot View"]
+        ExplorerView["Blockchain Explorer & Verifier"]
+        SqlView["Interactive DBMS Demo Workbench"]
+    end
+
+    subgraph ApplicationTier ["2. Application Tier (Node.js & Express)"]
+        AuthMiddleware["JWT Authentication & RBAC Middleware"]
+        ElectionCtrl["Election & Candidate Controllers"]
+        VotingCtrl["Atomic Voting Transaction Handler"]
+        LedgerService["SHA-256 Ledger Mining & Auditor"]
+        AuditService["System Telemetry & Audit Logger"]
+    end
+
+    subgraph PersistenceTier ["3. Persistence Tier (Relational DBMS)"]
+        UsersTable["users (Admins, Voters, Candidates)"]
+        ElectionsTable["elections (Schedule & Status)"]
+        CandidatesTable["candidates (Manifestos & Profiles)"]
+        EligibilityTable["voter_eligibility (Participation Status)"]
+        VotesTable["votes (Decoupled Secret Ballots)"]
+        BlocksTable["blockchain_blocks (SHA-256 Hash Chain)"]
+        AuditTable["audit_logs (Transactional History)"]
+    end
+
+    UI -->|HTTP / REST + Bearer JWT| AuthMiddleware
+    Voice -->|Voice Nav & Query Intent| UI
+    AuthMiddleware --> ElectionCtrl
+    AuthMiddleware --> VotingCtrl
+    AuthMiddleware --> LedgerService
+    AuthMiddleware --> AuditService
+
+    VotingCtrl -->|ACID Transaction: Rollback on Error| EligibilityTable
+    VotingCtrl -->|Anonymous Ballot Persist| VotesTable
+    VotingCtrl -->|Mine SHA-256 Block| BlocksTable
+    LedgerService -->|Sequential Pointer Audit| BlocksTable
+    ElectionCtrl --> UsersTable
+    ElectionCtrl --> ElectionsTable
+    ElectionCtrl --> CandidatesTable
+    AuditService --> AuditTable

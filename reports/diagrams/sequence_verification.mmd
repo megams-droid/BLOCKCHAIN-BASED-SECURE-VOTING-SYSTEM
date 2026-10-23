@@ -1,0 +1,31 @@
+sequenceDiagram
+    autonumber
+    actor Auditor as User / Auditor
+    participant UI as React 18 Frontend
+    participant Server as Express Server
+    participant Ctrl as Blockchain Controller
+    participant Service as Ledger Verification Service
+    participant DB as Relational Database
+
+    Auditor->>UI: Navigate to Verify Page (or Speak "Verify Blockchain")
+    UI->>Server: GET /api/blockchain/:electionId/verify
+    Server->>Ctrl: verifyBlockchain(req, res)
+    Ctrl->>Service: verifyBlockchain(electionId)
+    Service->>DB: SELECT * FROM blockchain_blocks ORDER BY block_index ASC
+
+    Note over Service: 1. Verify Genesis Block (Index=0, prev_hash=64 zeros)
+    Note over Service: 2. Loop Through Blocks [1..N]:
+    Note over Service:    a. Validate index continuity: block[i].index == i
+    Note over Service:    b. Validate pointer continuity: block[i].prev_hash == block[i-1].curr_hash
+    Note over Service:    c. Recalculate block[i].curr_hash using canonical fields
+    Note over Service: 3. Verify total votes == non-genesis blocks
+
+    alt All Hashes and Pointers Match
+        Service-->>Ctrl: { isValid: true, status: "Ledger integrity verified", totalBlocks, issues: [] }
+        Ctrl-->>UI: HTTP 200 JSON Response
+        UI-->>Auditor: Display 100% Cryptographic Verification & Voice Speaks Confirmation
+    else Discrepancy Found (e.g., After Tamper Simulation)
+        Service-->>Ctrl: { isValid: false, status: "Previous-hash mismatch / Integrity failed", issues: [...] }
+        Ctrl-->>UI: HTTP 200 Verification Report with Flagged Blocks
+        UI-->>Auditor: Display Red Tamper Warning with Specific Broken Block Index
+    end

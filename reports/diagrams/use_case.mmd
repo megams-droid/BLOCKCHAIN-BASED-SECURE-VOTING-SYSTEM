@@ -1,0 +1,48 @@
+graph LR
+    subgraph Actors ["User Roles"]
+        Voter((Voter))
+        Admin((Administrator))
+        Candidate((Candidate))
+    end
+
+    subgraph SystemBoundary ["Blockchain-Based Secure Voting System"]
+        UC1["Register & Authenticate"]
+        UC2["View Active Elections"]
+        UC3["Check Voting Eligibility"]
+        UC4["Cast One-Time Anonymous Vote"]
+        UC5["View Blockchain Explorer"]
+        UC6["Verify Ledger Integrity"]
+        UC7["Interact with AI Voice Assistant"]
+        UC8["Toggle White / Dark Theme"]
+        UC9["Create & Schedule Election"]
+        UC10["Manage Candidates & Manifestos"]
+        UC11["Publish Election Results"]
+        UC12["Inspect System Audit Logs"]
+        UC13["Execute DBMS Viva Demo Queries"]
+        UC14["Simulate Tamper Attack"]
+    end
+
+    Voter --> UC1
+    Voter --> UC2
+    Voter --> UC3
+    Voter --> UC4
+    Voter --> UC5
+    Voter --> UC6
+    Voter --> UC7
+    Voter --> UC8
+
+    Candidate --> UC1
+    Candidate --> UC2
+    Candidate --> UC10
+    Candidate --> UC7
+    Candidate --> UC8
+
+    Admin --> UC1
+    Admin --> UC2
+    Admin --> UC9
+    Admin --> UC10
+    Admin --> UC11
+    Admin --> UC12
+    Admin --> UC6
+    Admin --> UC13
+    Admin --> UC14
