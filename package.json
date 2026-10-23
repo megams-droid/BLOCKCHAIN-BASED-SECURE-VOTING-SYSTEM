@@ -1,0 +1,12 @@
+{
+  "name": "blockchain-secure-voting",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "DBMS Project - Blockchain-Based Secure Voting System",
+  "scripts": {
+    "test": "node --test tests/backend.test.js",
+    "dev:backend": "node --watch backend/src/app.js",
+    "dev:frontend": "cd frontend && npm run dev",
+    "seed": "node -e \"import('./backend/src/config/db.js').then(m => m.initDatabase())\""
+  }
+}
